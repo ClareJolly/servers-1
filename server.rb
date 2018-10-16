@@ -4,10 +4,6 @@ server = TCPServer.new(2345)
 
 socket = server.accept
 
-# socket.puts "What do you say??"
-#
-# they_said = socket.gets.chomp
-
 class Notebook
   attr_reader :title
   attr_accessor :all_notes
@@ -39,12 +35,14 @@ class Note
 
 end
 
-socket.puts "What do you want to do?"
+socket.puts "WELCOME TO THE JOLLY NOTES APP"
+socket.puts "==============================\n"
+socket.puts "What do you want to do? (add, view, view body)"
 do_next = socket.gets.chomp
 notebook = Notebook.new
 while do_next != "quit"
 
-if do_next.downcase == "add note"
+if do_next.downcase == "add"
 
 socket.puts "Enter note title"
 notetitle = socket.gets.chomp
@@ -64,7 +62,7 @@ do_next = socket.gets.chomp
 # notetitle = socket.gets.chomp
 
 
-elsif do_next.downcase == "view notes"
+elsif do_next.downcase == "view"
   socket.puts notebook.note_titles
   socket.puts "What do you want to do?"
   do_next = socket.gets.chomp
@@ -73,6 +71,9 @@ elsif do_next.downcase == "view body"
   notetitle = socket.gets.chomp
   socket.puts notebook.note_body(notetitle)
   socket.puts "What do you want to do?"
+  do_next = socket.gets.chomp
+else
+  socket.puts "Sorry, what? What do you want to do?"
   do_next = socket.gets.chomp
 end
 end

@@ -37,38 +37,42 @@ end
 
 socket.puts "WELCOME TO THE JOLLY NOTES APP"
 socket.puts "==============================\n"
-socket.puts "What do you want to do? (add, view, view body)"
+socket.puts "> What do you want to do? (add, view, view body)"
 do_next = socket.gets.chomp
 notebook = Notebook.new
 
 while do_next != "quit"
   if do_next.downcase == "add"
-    socket.puts "Enter note title"
+    socket.puts "> Enter note title"
     notetitle = socket.gets.chomp
-    socket.puts "Enter note body"
+    socket.puts "> Enter note body"
     notebody = socket.gets.chomp
     note = Note.new(notebook, notetitle, notebody)
-    socket.puts "Note added"
-    socket.puts "\nWhat do you want to do?\n"
+    socket.puts "==========\n"
+    socket.puts "NOTE ADDED"
+    socket.puts "==========\n"
+    socket.puts "\n> What do you want to do?\n"
     do_next = socket.gets.chomp
   elsif do_next.downcase == "view"
+    socket.puts "==================\n"
     socket.puts "HERE ARE THE NOTES"
     socket.puts "==================\n"
     socket.puts notebook.note_titles
-    socket.puts "\nWhat do you want to do?\n"
+    socket.puts "\n> What do you want to do?\n"
     do_next = socket.gets.chomp
   elsif do_next.downcase == "view body"
-    socket.puts "which note?"
+    socket.puts "> Which note?"
     notetitle = socket.gets.chomp
+    socket.puts "\n====================================\n"
     socket.puts "HERE IS THE BODY OF #{notetitle.upcase}"
     socket.puts "====================================\n"
     socket.puts notebook.note_body(notetitle)
-    socket.puts "\nWhat do you want to do?\n"
+    socket.puts "\n> What do you want to do?\n"
     do_next = socket.gets.chomp
   else
     socket.puts "Sorry, what? What do you want to do?"
     do_next = socket.gets.chomp
   end
 end
-socket.puts "You said: . Goodbye!!"
+socket.puts "Goodbye!!"
 socket.close
